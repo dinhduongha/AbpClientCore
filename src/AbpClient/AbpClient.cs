@@ -15,13 +15,13 @@ using Bamboo.AbpHelper.Ajax.Dto;
 
 namespace Bamboo.AbpClient
 {
-    public class ApiClient : IAbpClient
+    public class AbpClient : IAbpClient
     {
         public string BaseUrl { get; set; } = "http://localhost:30304";
         protected readonly HttpClient _httpClient;
         private string token = "";
         private UserInfo UserInfo { get; set; } = null;
-        public ApiClient(HttpClient httpClient)
+        public AbpClient(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -455,5 +455,5 @@ namespace Bamboo.AbpClient
             return default(T);
         }
     }
-    class IgnoreResponse { }
+    public class IgnoreResponse { }
 }
