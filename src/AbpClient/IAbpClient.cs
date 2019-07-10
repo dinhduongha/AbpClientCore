@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using AbpHelper.Authenticate;
 using AbpHelper.Accounts.Dto;
 using AbpHelper.Users.Dto;
-using AbpClientCore.Model;
+using AbpClient.Core.Model;
 
 namespace Bamboo.AbpClient
 {

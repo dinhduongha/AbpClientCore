@@ -13,7 +13,7 @@ using AbpHelper.Sessions.Dto;
 using AbpHelper.Users.Dto;
 using AbpHelper.Accounts.Dto;
 
-using AbpClientCore.Model;
+using AbpClient.Core.Model;
 
 namespace Bamboo.AbpClient
 {

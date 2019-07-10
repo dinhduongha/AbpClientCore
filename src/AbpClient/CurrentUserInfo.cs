@@ -3,7 +3,7 @@ using AbpHelper;
 using AbpHelper.Authenticate;
 using AbpHelper.Sessions.Dto;
 
-namespace AbpClientCore.Model
+namespace AbpClient.Core.Model
 {
     public class CurrentUserInfo
     {
