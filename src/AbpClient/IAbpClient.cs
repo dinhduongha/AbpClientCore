@@ -14,8 +14,7 @@ namespace Bamboo.AbpClient
     {
         void SetToken(string token);
         void ClearToken();
-        Task<UserInfo> SignInAsync(AuthenticateModel user);
-        Task<UserInfo> Login(AuthenticateModel user);
+        Task<CurrentUserInfo> Login(AuthenticateModel user);
         Task Logout();
         bool IsLoggedIn();
         Task<UserDto> Register(RegisterInput model);

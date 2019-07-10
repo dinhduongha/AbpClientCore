@@ -22,7 +22,7 @@ namespace Bamboo.AbpClient
         public string BaseUrl { get; set; } = "http://localhost:21021";
         protected readonly HttpClient _httpClient;
         private string token = "";
-        private UserInfo UserInfo { get; set; } = null;
+        private CurrentUserInfo currentUserInfo { get; set; } = null;
         public AbpClientCore(HttpClient httpClient)
         {
             _httpClient = httpClient;
@@ -43,7 +43,7 @@ namespace Bamboo.AbpClient
             _httpClient.DefaultRequestHeaders.Authorization = null;
         }
 
-        public async Task<UserInfo> SignInAsync(AuthenticateModel model)
+        public async Task<CurrentUserInfo> SignInAsync(AuthenticateModel model)
         {
             try
             {
@@ -62,17 +62,17 @@ namespace Bamboo.AbpClient
                         var loginInfo = jsonObject.Result;
                         if (loginInfo != null)
                         {
-                            UserInfo = new UserInfo()
+                            currentUserInfo = new CurrentUserInfo()
                             {
-                                token = loginInfo.AccessToken,
-                                encryted_token = loginInfo.EncryptedAccessToken,
-                                id = loginInfo.UserId,
-                                loginResult = loginInfo,
+                                Token = loginInfo.AccessToken,
+                                Encryted_token = loginInfo.EncryptedAccessToken,
+                                Id = loginInfo.UserId,
+                                LoginResult = loginInfo,
                             };
                             SetToken(loginInfo.AccessToken);
                             await GetUserInfo();
 
-                            return UserInfo;
+                            return currentUserInfo;
                         }
                     }
                 }
@@ -88,20 +88,20 @@ namespace Bamboo.AbpClient
             return null;
         }
 
-        public async Task<UserInfo> Login(AuthenticateModel model)
+        public async Task<CurrentUserInfo> Login(AuthenticateModel model)
         {
             return await SignInAsync(model);
         }
         public async Task Logout()
         {
             ClearToken();
-            UserInfo = null;
+            currentUserInfo = null;
             await Task.CompletedTask;
         }
 
         public bool IsLoggedIn()
         {
-            return UserInfo != null;
+            return currentUserInfo != null;
         }
 
         public async Task<UserDto> Register(RegisterInput model)
@@ -127,11 +127,11 @@ namespace Bamboo.AbpClient
                             var jUser = info.User;
                             if (jUser != null)
                             {
-                                UserInfo.email = jUser.EmailAddress;
-                                UserInfo.username = jUser.UserName;
+                                currentUserInfo.Email = jUser.EmailAddress;
+                                currentUserInfo.Username = jUser.UserName;
                             }
                         }
-                        UserInfo.info = info;
+                        currentUserInfo.Info = info;
                         return info;
                     }
                 }
