@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
-using Bamboo.AbpClient.Model;
-using Bamboo.AbpHelper;
+using AbpHelper.Authenticate;
+using AbpHelper.Accounts.Dto;
+using AbpHelper.Users.Dto;
+using AbpClientCore.Model;
 
 namespace Bamboo.AbpClient
 {
@@ -13,9 +15,12 @@ namespace Bamboo.AbpClient
         void SetToken(string token);
         void ClearToken();
         Task<UserInfo> SignInAsync(AuthenticateModel user);
-        Task SignOut();
-        bool IsLogin();
+        Task<UserInfo> Login(AuthenticateModel user);
+        Task Logout();
+        bool IsLoggedIn();
+        Task<UserDto> Register(RegisterInput model);
 
+        string BaseUrl { get; set; }
         Task<T> GetJsonAsync<T>(string apiEndPoint);
         Task PostJsonAsync(string apiEndPoint, object content);
         Task<T> PostJsonAsync<T>(string apiEndPoint, object content);

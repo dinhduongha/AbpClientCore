@@ -1,4 +1,4 @@
-namespace Bamboo.AbpHelper.Ajax
+namespace AbpHelper.Ajax
 {
     /// <summary>
     /// This interface is defined to standardize to return a page of items to clients.

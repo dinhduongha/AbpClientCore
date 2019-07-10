@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using Bamboo.AbpHelper;
-using Bamboo.AbpHelper.Ajax;
-using Bamboo.AbpHelper.Ajax.Dto;
-using Bamboo.AbpHelper.Dto;
-using Bamboo.AbpClient.Model;
+using AbpHelper;
+using AbpHelper.Ajax;
+using AbpHelper.Ajax.Dto;
+using AbpHelper.Roles.Dto;
+using AbpHelper.Users.Dto;
+using AbpHelper.MultiTenancy.Dto;
+
 namespace Bamboo.AbpClient
 {
     public class AbpCoreService
@@ -109,7 +111,7 @@ namespace Bamboo.AbpClient
         {
             try
             {
-                var response = await api.Delete<bool>("/api/services/app/Role/Delete", id);
+                var response = await api.Delete<bool>($"/api/services/app/Role/Delete?Id={id}");
                 return response;
             }
             catch
@@ -174,7 +176,7 @@ namespace Bamboo.AbpClient
         {
             try
             {
-                var response = await api.Delete<bool>("/api/services/app/Tenant/Delete", id);
+                var response = await api.Delete<bool>($"/api/services/app/Tenant/Delete?Id={id}");
                 return response;
             }
             catch
@@ -243,7 +245,7 @@ namespace Bamboo.AbpClient
         {
             try
             {
-                var response = await api.Delete<bool>("/api/services/app/User/Delete", id);
+                var response = await api.Delete<bool>($"/api/services/app/User/Delete?Id={id}");
                 return response;
             }
             catch

@@ -1,11 +1,9 @@
-﻿using System;
-namespace Bamboo.AbpSessions.Dto
+﻿
+namespace AbpHelper.Sessions.Dto
 {
-    [Serializable]
     public class TenantLoginInfoDto
     {
-        public long Id { get; set; }
-
+        public int Id { get; set; }
         public string TenancyName { get; set; }
 
         public string Name { get; set; }

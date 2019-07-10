@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bamboo.AbpHelper.Ajax
+namespace AbpHelper.Ajax
 {
     /// <summary>
     /// This class is used to create standard responses for AJAX requests.

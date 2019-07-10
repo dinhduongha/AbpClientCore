@@ -1,5 +1,5 @@
 ﻿using System.Text.RegularExpressions;
-namespace Bamboo.AbpHelper
+namespace AbpHelper
 {
     public static class ValidationHelper
     {

@@ -1,6 +1,6 @@
 ﻿namespace AbpHelper.Sessions.Dto
 {
-    public class CurrentLoginInformations
+    public class GetCurrentLoginInformationsOutput
     {
         public ApplicationInfoDto Application { get; set; }
 

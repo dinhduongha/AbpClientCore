@@ -1,42 +1,21 @@
-using System;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
-namespace Bamboo.AbpHelper.Dto
+namespace AbpHelper.MultiTenancy.Dto
 {
-    [Serializable]
-    [JsonObject(NamingStrategyType = typeof(CamelCaseNamingStrategy))]
     public class TenantDto
     {
-        // Summary:
-        //     Max length of the Abp.MultiTenancy.AbpTenantBase.TenancyName property.
-        public const int MaxTenancyNameLength = 64;
-        //
-        // Summary:
-        //     Max length of the Abp.MultiTenancy.AbpTenantBase.ConnectionString property.
-        public const int MaxConnectionStringLength = 1024;
-        //
-        // Summary:
-        //     "Default".
-        public const string DefaultTenantName = "Default";
-        //
-        // Summary:
-        //     "^[a-zA-Z][a-zA-Z0-9_-]{1,}$".
-        public const string TenancyNameRegex = "^[a-zA-Z][a-zA-Z0-9_-]{1,}$";
-        //
-        // Summary:
-        //     Max length of the Abp.MultiTenancy.AbpTenantBase.Name property.
-        public const int MaxNameLength = 128;
+        [Required]
+        public int Id { get; set; }
 
-        public long Id { get; set; }
-        
+        [Required]
+        [StringLength(AbpTenantBaseConst.MaxTenancyNameLength)]
+        [RegularExpression(AbpTenantBaseConst.TenancyNameRegex)]
         public string TenancyName { get; set; }
 
+        [Required]
+        [StringLength(AbpTenantBaseConst.MaxNameLength)]
         public string Name { get; set; }        
         
         public bool IsActive {get; set;}
-
-        [JsonProperty("guid", NullValueHandling = NullValueHandling.Ignore)]
-        public Guid Guid { get; set; }
     }
 }

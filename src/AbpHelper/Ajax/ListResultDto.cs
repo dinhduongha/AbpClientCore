@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bamboo.AbpHelper.Ajax.Dto
+namespace AbpHelper.Ajax.Dto
 {
     /// <summary>
     /// Implements <see cref="IListResult{T}"/>.

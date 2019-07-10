@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Bamboo.AbpHelper.Ajax
+namespace AbpHelper.Ajax
 {
     /// <summary>
     /// Used to store information about a validation error.

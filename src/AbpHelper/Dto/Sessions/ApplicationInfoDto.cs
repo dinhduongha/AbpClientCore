@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Bamboo.AbpSessions.Dto
+namespace AbpHelper.Sessions.Dto
 {
-    [Serializable]
     public class ApplicationInfoDto
     {
         public string Version { get; set; }

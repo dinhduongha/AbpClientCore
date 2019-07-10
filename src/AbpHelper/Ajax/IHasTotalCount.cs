@@ -1,4 +1,4 @@
-namespace Bamboo.AbpHelper.Ajax
+namespace AbpHelper.Ajax
 {
     /// <summary>
     /// This interface is defined to standardize to set "Total Count of Items" to a DTO.

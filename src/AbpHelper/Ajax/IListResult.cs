@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 
-namespace Bamboo.AbpHelper.Ajax
+namespace AbpHelper.Ajax
 {
     /// <summary>
     /// This interface is defined to standardize to return a list of items to clients.

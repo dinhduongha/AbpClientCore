@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-using Bamboo.AbpHelper.Ajax;
-using Bamboo.AbpSessions.Dto;
-
-namespace Bamboo.AbpHelper
+﻿
+namespace AbpHelper.Authenticate
 {
     public class AuthenticateModel
     {

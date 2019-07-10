@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Bamboo.AbpHelper.Ajax.Dto
+namespace AbpHelper.Ajax.Dto
 {
     /// <summary>
     /// Implements <see cref="IPagedResult{T}"/>.
@@ -14,6 +14,8 @@ namespace Bamboo.AbpHelper.Ajax.Dto
         /// Total count of Items.
         /// </summary>
         public int TotalCount { get; set; }
+
+        public int SkipCount { get; set; }
 
         /// <summary>
         /// Creates a new <see cref="PagedResultDto{T}"/> object.

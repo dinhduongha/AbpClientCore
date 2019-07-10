@@ -1,9 +1,8 @@
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace AbpHelper.Roles.Dto
 {
-    public class RoleDto
+    public class RoleEditDto
     {
         [Required]
         public int Id { get; set; }
@@ -11,16 +10,14 @@ namespace AbpHelper.Roles.Dto
         [Required]
         [StringLength(AbpRoleBaseConst.MaxNameLength)]
         public string Name { get; set; }
-        
+
         [Required]
         [StringLength(AbpRoleBaseConst.MaxDisplayNameLength)]
         public string DisplayName { get; set; }
 
-        public string NormalizedName { get; set; }
-        
         [StringLength(AbpRoleBaseConst.MaxDescriptionLength)]
         public string Description { get; set; }
 
-        public List<string> Permissions { get; set; }
+        public bool IsStatic { get; set; }
     }
 }

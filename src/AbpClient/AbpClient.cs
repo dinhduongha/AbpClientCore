@@ -6,22 +6,24 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using Bamboo.AbpClient.Model;
-using Bamboo.AbpHelper;
-using Bamboo.AbpHelper.Ajax;
-using Bamboo.AbpSessions.Dto;
-using Bamboo.AbpHelper.Dto;
-using Bamboo.AbpHelper.Ajax.Dto;
+using AbpHelper.Ajax;
+using AbpHelper.Ajax.Dto;
+using AbpHelper.Authenticate;
+using AbpHelper.Sessions.Dto;
+using AbpHelper.Users.Dto;
+using AbpHelper.Accounts.Dto;
+
+using AbpClientCore.Model;
 
 namespace Bamboo.AbpClient
 {
-    public class AbpClient : IAbpClient
+    public class AbpClientCore : IAbpClient
     {
-        public string BaseUrl { get; set; } = "http://localhost:30304";
+        public string BaseUrl { get; set; } = "http://localhost:21021";
         protected readonly HttpClient _httpClient;
         private string token = "";
         private UserInfo UserInfo { get; set; } = null;
-        public AbpClient(HttpClient httpClient)
+        public AbpClientCore(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
@@ -86,16 +88,26 @@ namespace Bamboo.AbpClient
             return null;
         }
 
-        public async Task SignOut()
+        public async Task<UserInfo> Login(AuthenticateModel model)
+        {
+            return await SignInAsync(model);
+        }
+        public async Task Logout()
         {
             ClearToken();
             UserInfo = null;
             await Task.CompletedTask;
         }
 
-        public bool IsLogin()
+        public bool IsLoggedIn()
         {
             return UserInfo != null;
+        }
+
+        public async Task<UserDto> Register(RegisterInput model)
+        {
+            await Task.CompletedTask;
+            return null;
         }
 
         public async Task<CurrentLoginInformations> GetUserInfo()

@@ -1,4 +1,6 @@
-namespace Bamboo.AbpHelper.Dto
+using AbpHelper.Accounts.Dto;
+
+namespace AbpHelper.AccountsDto
 {
     public class IsTenantAvailableOutput
     {

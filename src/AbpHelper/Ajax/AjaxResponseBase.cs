@@ -1,5 +1,5 @@
 ﻿
-namespace Bamboo.AbpHelper.Ajax
+namespace AbpHelper.Ajax
 {
     public abstract class AjaxResponseBase
     {

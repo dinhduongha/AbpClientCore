@@ -1,6 +1,5 @@
 ﻿using System;
-
-namespace Bamboo.AbpHelper.Dto
+namespace AbpHelper.Accounts.Dto
 {
     [Serializable]
     public class IsTenantAvailableInput

@@ -1,8 +1,9 @@
 ﻿using System;
-using Bamboo.AbpHelper;
-using Bamboo.AbpSessions.Dto;
+using AbpHelper;
+using AbpHelper.Authenticate;
+using AbpHelper.Sessions.Dto;
 
-namespace Bamboo.AbpClient.Model
+namespace AbpClientCore.Model
 {
     public class UserInfo
     {

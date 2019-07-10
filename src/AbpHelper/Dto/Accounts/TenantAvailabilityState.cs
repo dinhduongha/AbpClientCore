@@ -1,4 +1,4 @@
-﻿namespace Bamboo.AbpHelper.Dto
+﻿namespace AbpHelper.Accounts.Dto
 {
     public enum TenantAvailabilityState
     {
