@@ -12,14 +12,21 @@ namespace Bamboo.AbpClient
 {
     public interface IAbpClient
     {
+        HttpClient HttpClient { get; }
+        string BaseUrl { get; set; }
+        #region Account
         void SetToken(string token);
         void ClearToken();
-        Task<CurrentUserInfo> Login(AuthenticateModel user);
+        CurrentUserInfo Login(AuthenticateModel user);
+        Task<CurrentUserInfo> LoginAsync(AuthenticateModel user);
         Task Logout();
         bool IsLoggedIn();
-        Task<UserDto> Register(RegisterInput model);
+        UserDto Register(RegisterInput model);
+        Task<UserDto> RegisterAsync(RegisterInput model);
+        #endregion
 
-        string BaseUrl { get; set; }
+        // Return json object
+        #region Json
         Task<T> GetJsonAsync<T>(string apiEndPoint);
         Task PostJsonAsync(string apiEndPoint, object content);
         Task<T> PostJsonAsync<T>(string apiEndPoint, object content);
@@ -28,19 +35,35 @@ namespace Bamboo.AbpClient
         Task DeleteJsonAsync(string apiEndPoint);
         Task<T> DeleteJsonAsync<T>(string apiEndPoint);
         Task<T> SendJsonAsync<T>(HttpMethod method, string apiEndPoint, object content);
-        
-        #region AjaxHelper
-        Task<T> Create<T>(string apiEndPoint, object obj);
-       Task<List<T>> ReadAll<T>(string apiEndPoint);
-        Task<T> Read<T>(string apiEndPoint);
-        Task<T> Read<T>(string apiEndPoint, long id);
-        Task<T> Update<T>(string apiEndPoint, object obj);
-        Task<T> Update<T>(string apiEndPoint, long id, object obj);
-        Task<T> Delete<T>(string apiEndPoint);
-        Task<T> Delete<T>(string apiEndPoint, long id);
-        Task<T> SendAsync<T>(HttpMethod method, string apiEndPoint, HttpContent content);
+        Task<T> SendContentAsync<T>(HttpMethod method, string apiEndPoint, HttpContent content);
+
         #endregion
 
-        Task<T> SendContentAsync<T>(HttpMethod method, string apiEndPoint, HttpContent content);
+        byte[] SendBytes(HttpMethod method, string apiEndPoint, HttpContent content);
+        Task<byte[]> SendBytesAsync(HttpMethod method, string apiEndPoint, HttpContent content);
+
+        /// <summary>
+        /// Data response in Ajax format
+        /// </summary>        
+        #region AjaxHelper
+        T ReadAll<T>(string apiEndPoint);
+        Task<T> ReadAllAsync<T>(string apiEndPoint);
+        T Filter<T>(string apiEndPoint, object filter);
+        Task<T> FilterAsync<T>(string apiEndPoint, object filter);
+        T Create<T>(string apiEndPoint, object obj);
+        Task<T> CreateAsync<T>(string apiEndPoint, object obj);        
+        T Read<T>(string apiEndPoint);
+        Task<T> ReadAsync<T>(string apiEndPoint);
+        T Read<T>(string apiEndPoint, long id);
+        Task<T> ReadAsync<T>(string apiEndPoint, long id);
+        T Update<T>(string apiEndPoint, object obj);
+        Task<T> UpdateAsync<T>(string apiEndPoint, object obj);
+        T Delete<T>(string apiEndPoint);
+        Task<T> DeleteAsync<T>(string apiEndPoint);
+        T Delete<T>(string apiEndPoint, long id);
+        Task<T> DeleteAsync<T>(string apiEndPoint, long id);
+        T Send<T>(HttpMethod method, string apiEndPoint, HttpContent content);
+        Task<T> SendAsync<T>(HttpMethod method, string apiEndPoint, HttpContent content);
+        #endregion
     }
 }

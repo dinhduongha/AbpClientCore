@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using AbpHelper;
 using AbpHelper.Authenticate;
+using AbpHelper.Roles.Dto;
 using AbpHelper.Sessions.Dto;
 
 namespace AbpClient.Core.Model
@@ -20,6 +22,7 @@ namespace AbpClient.Core.Model
         public long Expire { get; set; }
         public CurrentLoginInformations Info { get; set; }
         public AuthenticateResultModel LoginResult { get; set; }
+        public List<RoleDto> Roles { get; set; }
         public CurrentUserInfo Clone()
         {
             return new CurrentUserInfo

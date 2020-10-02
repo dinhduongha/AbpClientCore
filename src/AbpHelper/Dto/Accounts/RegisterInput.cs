@@ -5,25 +5,13 @@ namespace AbpHelper.Accounts.Dto
 {
     public class RegisterInput : IValidatableObject
     {
-        [Required]
-        [StringLength(AbpUserBaseConst.MaxNameLength)]
         public string Name { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBaseConst.MaxSurnameLength)]
         public string Surname { get; set; }
 
-        [Required]
-        [StringLength(AbpUserBaseConst.MaxUserNameLength)]
         public string UserName { get; set; }
 
-        [Required]
-        [EmailAddress]
-        [StringLength(AbpUserBaseConst.MaxEmailAddressLength)]
         public string EmailAddress { get; set; }
-
-        [Required]
-        [StringLength(AbpUserBaseConst.MaxPlainPasswordLength)]
 
         public string Password { get; set; }
 

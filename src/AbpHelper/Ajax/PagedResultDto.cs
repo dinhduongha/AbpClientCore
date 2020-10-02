@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -13,8 +14,10 @@ namespace AbpHelper.Ajax.Dto
         /// <summary>
         /// Total count of Items.
         /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int TotalCount { get; set; }
 
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore)]
         public int SkipCount { get; set; }
 
         /// <summary>
