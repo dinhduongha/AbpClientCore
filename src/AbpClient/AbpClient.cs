@@ -6,15 +6,17 @@ using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using AbpHelper.Ajax;
-using AbpHelper.Ajax.Dto;
+
+using Abp.Web.Models;
+using Abp.Application.Services.Dto;
+
 using AbpHelper.Authenticate;
 using AbpHelper.Sessions.Dto;
 using AbpHelper.Users.Dto;
 using AbpHelper.Accounts.Dto;
-
-using AbpClient.Core.Model;
 using AbpHelper.Roles.Dto;
+
+using Bamboo.AbpClient.Model;
 
 namespace Bamboo.AbpClient
 {
@@ -22,21 +24,25 @@ namespace Bamboo.AbpClient
     {
         public string BaseUrl { get; set; } = "http://localhost:21021";
         protected readonly HttpClient _httpClient ;
-        private string token = "";
-        private CurrentUserInfo currentUserInfo { get; set; } = null;
+        private IAppContext _appContext;
+        private IAccessTokenContext _accessTokenContext;
         public AbpClientCore(HttpClient httpClient)
         {
             _httpClient = httpClient;
             _httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+            _accessTokenContext = new AccessTokenContext();
+            _appContext = new AppContext();
         }
+
         public HttpClient HttpClient { get { return _httpClient; } }
+
         public void SetToken(string token)
         {
             //_httpClient.DefaultRequestHeaders.Clear();
             //_httpClient.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
             //_httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-            this.token = token;
-            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", this.token);
+            this._accessTokenContext.Token = token;
+            _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _accessTokenContext.Token);
         }
 
         public void ClearToken()
@@ -63,7 +69,7 @@ namespace Bamboo.AbpClient
                         var loginInfo = jsonObject.Result;
                         if (loginInfo != null)
                         {
-                            currentUserInfo = new CurrentUserInfo()
+                            _appContext.CurrentUserInfo = new CurrentUserInfo()
                             {
                                 Token = loginInfo.AccessToken,
                                 Encryted_token = loginInfo.EncryptedAccessToken,
@@ -73,7 +79,7 @@ namespace Bamboo.AbpClient
                             SetToken(loginInfo.AccessToken);
                             GetUserInfo();
 
-                            return currentUserInfo;
+                            return _appContext.CurrentUserInfo;
                         }
                     }
                 }
@@ -107,7 +113,7 @@ namespace Bamboo.AbpClient
                         var loginInfo = jsonObject.Result;
                         if (loginInfo != null)
                         {
-                            currentUserInfo = new CurrentUserInfo()
+                            _appContext.CurrentUserInfo = new CurrentUserInfo()
                             {
                                 Token = loginInfo.AccessToken,
                                 Encryted_token = loginInfo.EncryptedAccessToken,
@@ -117,7 +123,7 @@ namespace Bamboo.AbpClient
                             SetToken(loginInfo.AccessToken);
                             await GetUserInfoAsync();
 
-                            return currentUserInfo;
+                            return _appContext.CurrentUserInfo;
                         }
                     }
                 }
@@ -144,13 +150,13 @@ namespace Bamboo.AbpClient
         public async Task Logout()
         {
             ClearToken();
-            currentUserInfo = null;
+            _appContext.CurrentUserInfo = null;
             await Task.CompletedTask;
         }
 
         public bool IsLoggedIn()
         {
-            return currentUserInfo != null;
+            return _appContext.CurrentUserInfo != null;
         }
 
         public UserDto Register(RegisterInput model)
@@ -180,14 +186,14 @@ namespace Bamboo.AbpClient
                             var jUser = info.User;
                             if (jUser != null)
                             {
-                                currentUserInfo.Email = jUser.EmailAddress;
-                                currentUserInfo.Username = jUser.UserName;
-                                currentUserInfo.Surname = jUser.Surname;
-                                currentUserInfo.Name = jUser.Name;
+                                _appContext.CurrentUserInfo.Email = jUser.EmailAddress;
+                                _appContext.CurrentUserInfo.Username = jUser.UserName;
+                                _appContext.CurrentUserInfo.Surname = jUser.Surname;
+                                _appContext.CurrentUserInfo.Name = jUser.Name;
                                 //currentUserInfo.Id = jUser.Id;
                             }
                         }
-                        currentUserInfo.Info = info;
+                        _appContext.CurrentUserInfo.Info = info;
                     }
                 }
                 var roleResponse = _httpClient.GetAsync($"{BaseUrl}/api/services/app/User/GetRoles").GetAwaiter().GetResult();
@@ -198,8 +204,8 @@ namespace Bamboo.AbpClient
                     if (roleInfo != null && roleInfo.Success)
                     {
                         var roles = roleInfo.Result;
-                        currentUserInfo.Roles = new List<RoleDto>();
-                        currentUserInfo.Roles.AddRange(roles.Items);
+                        _appContext.CurrentUserInfo.Roles = new List<RoleDto>();
+                        _appContext.CurrentUserInfo.Roles.AddRange(roles.Items);
                     }
                 }
             }
@@ -207,7 +213,7 @@ namespace Bamboo.AbpClient
             {
 				throw;
             }
-            return currentUserInfo;
+            return _appContext.CurrentUserInfo;
         }
         public async Task<CurrentUserInfo> GetUserInfoAsync()
         {
@@ -226,11 +232,11 @@ namespace Bamboo.AbpClient
                             var jUser = info.User;
                             if (jUser != null)
                             {
-                                currentUserInfo.Email = jUser.EmailAddress;
-                                currentUserInfo.Username = jUser.UserName;
+                                _appContext.CurrentUserInfo.Email = jUser.EmailAddress;
+                                _appContext.CurrentUserInfo.Username = jUser.UserName;
                             }
                         }
-                        currentUserInfo.Info = info;                        
+                        _appContext.CurrentUserInfo.Info = info;                        
                     }
                 }
                 //var roleResponse = await _httpClient.GetAsync($"{BaseUrl}/api/services/app/User/GetRoles");
@@ -251,7 +257,7 @@ namespace Bamboo.AbpClient
 				throw;
             }
             await Task.CompletedTask;
-            return currentUserInfo;
+            return _appContext.CurrentUserInfo;
         }
         #region JsonAsync
         /// <summary>

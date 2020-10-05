@@ -2,36 +2,69 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
-using AbpHelper;
-using AbpHelper.Ajax;
-using AbpHelper.Ajax.Dto;
-using AbpHelper.Roles.Dto;
-using AbpHelper.Users.Dto;
-using AbpHelper.MultiTenancy.Dto;
 
-namespace Bamboo.AbpClient
+using Abp.Application.Services.Dto;
+
+using AbpHelper.Roles.Dto;
+using AbpHelper.Role;
+
+namespace Bamboo.AbpClient.Services
 {
-    public partial class AbpCoreService
+    public partial class RoleClientAppService : AbpCoreAppService, IRoleAppService
     {
+        public RoleClientAppService(IAbpClient apiClient)
+            : base(apiClient)
+        {
+
+        }
         #region Role
-        public RoleDto RoleCreate(CreateRoleDto role)
+        public async Task<RoleDto> Create(CreateRoleDto role)
         {
             try
             {
                 var response = api.Create<RoleDto>("/api/services/app/Role/Create", role);
+                await Task.CompletedTask;
                 return response;
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
-        public async Task<RoleDto> RoleCreateAsync(CreateRoleDto role)
+        public async Task<RoleDto> CreateAsync(CreateRoleDto role)
         {
             try
             {
                 var response = await api.CreateAsync<RoleDto>("/api/services/app/Role/Create", role);
+                await Task.CompletedTask;
+                return response;
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            return null;
+        }
+
+        public Task<ListResultDto<RoleListDto>> GetRoles()
+        {
+            throw new NotImplementedException();
+        }
+        public Task<ListResultDto<PermissionDto>> GetAllPermissions()
+        {
+            throw new NotImplementedException();
+        }
+        public Task<GetRoleForEditOutput> GetRoleForEdit(int Id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<PagedResultDto<RoleDto>> GetAll(PagedRoleResultRequestDto input)
+        {
+            try
+            {
+                var response = api.ReadAll<PagedResultDto<RoleDto>>("/api/services/app/Role/GetAll");
                 return response;
             }
             catch (Exception e)
@@ -40,20 +73,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public List<RoleDto> RoleGetAll()
-        {
-            try
-            {
-                var response = api.ReadAll<PagedResultDto<RoleDto>>("/api/services/app/Role/GetAll");
-                return (List<RoleDto>)response.Items;
-            }
-            catch (Exception e)
-            {
-				throw;
-            }
-            return null;
-        }
-        public async Task<List<RoleDto>> RoleGetAllAsync()
+        public async Task<List<RoleDto>> GetAllAsync()
         {
             try
             {
@@ -66,7 +86,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public RoleDto RoleGet(long id)
+        public async Task<RoleDto> Get(int id)
         {
             try
             {
@@ -79,7 +99,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public async Task<RoleDto> RoleGetAsync(long id)
+        public async Task<RoleDto> GetAsync(long id)
         {
             try
             {
@@ -92,7 +112,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public RoleDto RoleUpdate(RoleDto role)
+        public async Task<RoleDto> Update(RoleDto role)
         {
             try
             {
@@ -108,7 +128,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public async Task<RoleDto> RoleUpdateAsync(RoleDto role)
+        public async Task<RoleDto> UpdateAsync(RoleDto role)
         {
             try
             {
@@ -125,7 +145,7 @@ namespace Bamboo.AbpClient
             return null;
         }
 
-        public bool RoleDelete(long id)
+        public async Task<bool> Delete(int id)
         {
             try
             {
@@ -138,7 +158,7 @@ namespace Bamboo.AbpClient
             }
             return false;
         }
-        public async Task<bool> RoleDeleteAsync(long id)
+        public async Task<bool> DeleteAsync(long id)
         {
             try
             {

@@ -2,21 +2,28 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+
+using Abp.Application.Services.Dto;
+
 using AbpHelper;
-using AbpHelper.Ajax;
-using AbpHelper.Ajax.Dto;
 using AbpHelper.Roles.Dto;
 using AbpHelper.Users.Dto;
 using AbpHelper.MultiTenancy.Dto;
+using AbpHelper.User;
 
-namespace Bamboo.AbpClient
+namespace Bamboo.AbpClient.Services
 {
-    public partial class AbpCoreService
+    public partial class UserClientAppService: AbpCoreAppService, IUserAppService
     {
 
+        public UserClientAppService(IAbpClient apiClient)
+            :base(apiClient)
+        {
+
+        }
         #region User
 
-        public UserDto UserCreate(CreateUserDto newUser)
+        public async Task<UserDto> Create(CreateUserDto newUser)
         {
             try
             {
@@ -101,7 +108,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public UserDto UserUpdate(UserDto user)
+        public async Task<UserDto> Update(UserDto user)
         {
             try
             {
@@ -115,6 +122,7 @@ namespace Bamboo.AbpClient
             {
 				throw;
             }
+            await Task.CompletedTask;
             return null;
         }
         public async Task<UserDto> UserUpdateAsync(UserDto user)
@@ -133,7 +141,7 @@ namespace Bamboo.AbpClient
             }
             return null;
         }
-        public bool UserDelete(long id)
+        public async Task<bool> Delete(long id)
         {
             try
             {
@@ -158,6 +166,12 @@ namespace Bamboo.AbpClient
 				throw;
             }
             return false;
+        }
+
+        public async Task<ListResultDto<RoleListDto>> GetRoles()
+        {
+            await Task.CompletedTask;
+            throw new NotImplementedException();
         }
         #endregion
     }

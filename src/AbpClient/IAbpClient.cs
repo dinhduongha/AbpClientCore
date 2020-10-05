@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+
+using Abp.Dependency;
+
 using AbpHelper.Authenticate;
 using AbpHelper.Accounts.Dto;
 using AbpHelper.Users.Dto;
-using AbpClient.Core.Model;
+using Bamboo.AbpClient.Model;
 
 namespace Bamboo.AbpClient
 {
-    public interface IAbpClient
+    public interface IAbpClient: ISingletonDependency
     {
         HttpClient HttpClient { get; }
         string BaseUrl { get; set; }

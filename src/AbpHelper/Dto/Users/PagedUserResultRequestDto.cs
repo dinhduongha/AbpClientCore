@@ -1,10 +1,9 @@
 ﻿using System;
 
-using AbpHelper.Ajax.Dto;
+using Abp.Application.Services.Dto;
 
 namespace AbpHelper.Users.Dto
 {
-    //custom PagedResultRequestDto
     public class PagedUserResultRequestDto : PagedResultDto<UserDto>
     {
         public string Keyword { get; set; }

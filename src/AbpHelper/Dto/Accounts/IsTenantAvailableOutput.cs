@@ -1,6 +1,6 @@
 using AbpHelper.Accounts.Dto;
 
-namespace AbpHelper.AccountsDto
+namespace AbpHelper.Accounts.Dto
 {
     public class IsTenantAvailableOutput
     {

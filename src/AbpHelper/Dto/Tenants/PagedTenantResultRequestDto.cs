@@ -1,5 +1,5 @@
 ﻿
-using AbpHelper.Ajax.Dto;
+using Abp.Application.Services.Dto;
 
 namespace AbpHelper.MultiTenancy.Dto
 {

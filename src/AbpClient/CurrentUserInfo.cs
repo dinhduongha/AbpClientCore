@@ -5,7 +5,7 @@ using AbpHelper.Authenticate;
 using AbpHelper.Roles.Dto;
 using AbpHelper.Sessions.Dto;
 
-namespace AbpClient.Core.Model
+namespace Bamboo.AbpClient.Model
 {
     public class CurrentUserInfo
     {

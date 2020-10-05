@@ -1,9 +1,9 @@
 ﻿
-using AbpHelper.Ajax.Dto;
+using Abp.Application.Services.Dto;
 
 namespace AbpHelper.Roles.Dto
 {
-    public class PagedRoleResultRequestDto : PagedResultDto<RoleDto>
+    public class PagedRoleResultRequestDto : PagedResultRequestDto // PagedResultDto<RoleDto>
     {
         public string Keyword { get; set; }
     }

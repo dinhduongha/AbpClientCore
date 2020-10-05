@@ -2,19 +2,20 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+
+using Abp.Dependency;
+
 using AbpHelper;
-using AbpHelper.Ajax;
-using AbpHelper.Ajax.Dto;
 using AbpHelper.Roles.Dto;
 using AbpHelper.Users.Dto;
 using AbpHelper.MultiTenancy.Dto;
 
-namespace Bamboo.AbpClient
+namespace Bamboo.AbpClient.Services
 {
-    public partial class AbpCoreService
+    public partial class AbpCoreAppService: ITransientDependency
     {
         public readonly IAbpClient api;
-        public AbpCoreService(IAbpClient apiClient)
+        public AbpCoreAppService(IAbpClient apiClient)
         {
             api = apiClient;
         }

@@ -2,20 +2,26 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+
+using Abp.Application.Services.Dto;
+
 using AbpHelper;
-using AbpHelper.Ajax;
-using AbpHelper.Ajax.Dto;
 using AbpHelper.Roles.Dto;
 using AbpHelper.Users.Dto;
 using AbpHelper.MultiTenancy.Dto;
+using AbpHelper.MultiTenancy;
 
-namespace Bamboo.AbpClient
+namespace Bamboo.AbpClient.Services
 {
-    public partial class AbpCoreService
+    public partial class TenantClientAppService : AbpCoreAppService, ITenantAppService
     {
+        public TenantClientAppService(IAbpClient apiClient)
+            : base(apiClient)
+        {
 
+        }
         #region Tenant
-        public TenantDto TenantCreate(CreateTenantDto tenant)
+        public async Task<TenantDto> Create(CreateTenantDto tenant)
         {
             try
             {
@@ -24,8 +30,9 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
+            await Task.CompletedTask;
             return null;
         }
         public async Task<TenantDto> TenantCreateAsync(CreateTenantDto tenant)
@@ -37,7 +44,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -50,7 +57,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -63,7 +70,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -76,7 +83,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -89,7 +96,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -105,7 +112,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -121,7 +128,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return null;
         }
@@ -134,7 +141,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return false;
         }
@@ -147,7 +154,7 @@ namespace Bamboo.AbpClient
             }
             catch (Exception e)
             {
-				throw;
+                throw;
             }
             return false;
         }
